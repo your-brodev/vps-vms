@@ -11,7 +11,7 @@ display_header() {
     cat << "EOF"
                                                                                                       
                                                                                                       
-██ █████ █████ █████ █████ █████ █████ █████ █████ █████ █████ █████ ██
+███████████████████████████████████████████████████████████████████████
 ██                                                                   ██                                    
 ██       ██████╗ ██████╗  ██████╗     ██████╗ ███████╗██╗   ██╗      ██
 ██       ██╔══██╗██╔══██╗██╔═══██╗    ██╔══██╗██╔════╝██║   ██║      ██
@@ -22,7 +22,7 @@ display_header() {
 ██                                                                   ██
 ██                  VPS-VMS POWERED BY BRO DEV                       ██
 ██                                                                   ██                                                                                                                                          
-██ █████ █████ █████ █████ █████ █████ █████ █████ █████ █████ █████ ██ 
+███████████████████████████████████████████████████████████████████████ 
                                       
 EOF
     echo
@@ -370,13 +370,23 @@ start_vm() {
             setup_vm_image
         fi
         
+        # Check if KVM is available
+        local kvm_flag=""
+        local cpu_model="host"
+        if [ -c /dev/kvm ] && [ -w /dev/kvm ]; then
+            kvm_flag="-enable-kvm"
+        else
+            print_status "WARN" "KVM not available or accessible. Running QEMU without hardware acceleration."
+            cpu_model="qemu64"
+        fi
+
         # Base QEMU command
         local qemu_cmd=(
             qemu-system-x86_64
-            -enable-kvm
+            $kvm_flag
             -m "$MEMORY"
             -smp "$CPUS"
-            -cpu host
+            -cpu "$cpu_model"
             -drive "file=$IMG_FILE,format=qcow2,if=virtio"
             -drive "file=$SEED_FILE,format=raw,if=virtio"
             -boot order=c
