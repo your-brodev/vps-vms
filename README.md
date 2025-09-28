@@ -9,6 +9,6 @@ create a Codespace after fork
 
 # Third Step :
 run this command :
-''' bash
+```
 sudo apt install qemu-system cloud-image-utils wget
-'''
+```
