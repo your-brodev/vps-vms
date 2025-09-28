@@ -20,4 +20,6 @@ sudo apt install qemu-system cloud-image-utils wget
 bash vms.sh
 ```
 
-** Note: Now select as per you want **
+**Note: Now select as per you want**
+
+**Please Give A Star To this Repository**
