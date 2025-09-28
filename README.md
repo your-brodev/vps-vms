@@ -1,12 +1,14 @@
 # vps-vms
 This is a VPS for different OS vms.
 
-#First Step :
+# First Step :
 Fork this repository
 
-#Second Step :
+# Second Step :
 create a Codespace after fork
 
-#Third Step :
+# Third Step :
 run this command :
-'sudo apt install qemu-system cloud-image-utils wget'
+''' bash
+sudo apt install qemu-system cloud-image-utils wget
+'''
